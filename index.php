@@ -1,5 +1,6 @@
 <?php
 
+xhprof_enable(XHPROF_FLAGS_CPU + XHPROF_FLAGS_MEMORY);
 /*
  *---------------------------------------------------------------
  * APPLICATION ENVIRONMENT
@@ -203,3 +204,14 @@ require_once BASEPATH.'core/CodeIgniter.php';
 
 /* End of file index.php */
 /* Location: ./index.php */
+
+$data = xhprof_disable();
+
+include_once "/Applications/XAMPP/xamppfiles/htdocs/xhprof/xhprof_lib/utils/xhprof_lib.php";
+include_once "/Applications/XAMPP/xamppfiles/htdocs/xhprof/xhprof_lib/utils/xhprof_runs.php";
+
+$objXhprofRun = new XHProfRuns_Default();
+// 第一个参数j是xhprof_disable()函数返回的运行信息
+// 第二个参数是自定义的命名空间字符串(任意字符串),
+// 返回运行ID,用这个ID查看相关的运行结果
+$run_id = $objXhprofRun->save_run($data, "xhprof");
